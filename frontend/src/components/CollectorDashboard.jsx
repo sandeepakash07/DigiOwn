@@ -98,22 +98,30 @@ const NFTCollectorDashboard = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Cover Image */}
-      <div className="relative h-40">
-        <img src={collector.coverImage} alt="Cover" className="w-full h-full object-cover" />
-        <div className="absolute bottom-0 left-0 p-4">
-          <div className="w-16 h-16 rounded-full border-4 border-white overflow-hidden">
-            <img src={collector.avatar} alt="Avatar" className="w-full h-full object-cover" />
+      {/* Profile Info */}
+      <div className="p-20">
+        <div className="flex flex-wrap items-center justify-evenly">
+          <div className=" w-32 h-32 rounded-full border-4 border-gray-600 overflow-hidden">
+             <img src={collector.avatar} alt="Avatar" className="w-full h-full object-cover" />
+          </div>
+          <div>
+            <h1 className="text-2xl text-black font-bold">{collector.displayName}</h1>
+            <p className="text-black">@{collector.username}</p>
+            <p className="mt-2 text-black">{collector.bio}</p>
+        <div className="mt-4 flex space-x-4">
+          <div className="flex items-center">
+            <Clock className="mr-2 h-4 w-4 text-black" />
+            <span className='text-black font-bold'>{collector.stats.collected} collected</span>
+          </div>
+          <div className="flex items-center">
+            <Users className="mr-2 h-4 w-4 text-black" />
+            <span className='text-black font-bold'>{collector.stats.following} artists followed</span>
+          </div>
+          <div className="flex items-center">
+            <Heart className="mr-2 h-4 w-4 text-black " />
+            <span className='text-blackk font-bold'>{collector.stats.value} collection value</span>
           </div>
         </div>
-      </div>
-
-      {/* Profile Info */}
-      <div className="p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">{collector.displayName}</h1>
-            <p className="text-gray-500">@{collector.username}</p>
           </div>
           <button 
             className={`px-4 py-2 rounded-md ${followed ? 'bg-gray-200 text-gray-800' : 'bg-blue-600 text-white'}`}
@@ -122,42 +130,27 @@ const NFTCollectorDashboard = () => {
             {followed ? "Following" : "Follow"}
           </button>
         </div>
-        <p className="mt-2 text-gray-700">{collector.bio}</p>
-        <div className="mt-4 flex space-x-4">
-          <div className="flex items-center">
-            <Clock className="mr-2 h-4 w-4" />
-            <span>{collector.stats.collected} collected</span>
-          </div>
-          <div className="flex items-center">
-            <Users className="mr-2 h-4 w-4" />
-            <span>{collector.stats.following} artists followed</span>
-          </div>
-          <div className="flex items-center">
-            <Heart className="mr-2 h-4 w-4" />
-            <span>{collector.stats.value} collection value</span>
-          </div>
-        </div>
       </div>
 
       {/* Search and Filters */}
-      <div className="p-4 bg-white border-b sticky top-0 z-10">
+      <div className="flex justify-center gap-8 p-4 bg-white border-b sticky top-0 z-10">
         <div className="flex flex-col md:flex-row justify-between gap-4">
           <div className="relative">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-3 h-4 w-4 text-black border-gray-400" />
             <input
               type="text"
               placeholder="Search by title or artist..."
-              className="pl-10 pr-4 py-2 w-full md:w-64 border rounded-md"
+              className="pl-10 pr-4 py-2 w-full md:w-64 border bg-white text-gray-600 rounded-md"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          
+          {/* Category */}
           <div className="flex flex-wrap gap-2">
             {categories.map(category => (
               <button 
                 key={category}
-                className={`px-3 py-1 rounded-full text-sm ${activeFilter === category ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-800'}`}
+                className={`px-3 py-1 border-gray-800 rounded-md text-sm ${activeFilter === category ? 'bg-gray-200 text-black' : 'bg-white text-black'}`}
                 onClick={() => setActiveFilter(category)}
               >
                 {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -169,14 +162,14 @@ const NFTCollectorDashboard = () => {
       
       {/* Collection Grid */}
       {filteredNFTs.length > 0 ? (
-        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="m-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredNFTs.map((nft) => (
             <div key={nft.id} className="border rounded-lg shadow-sm overflow-hidden">
               <div className="aspect-square">
                 <img 
                   src={nft.image} 
                   alt={nft.title} 
-                  className="w-full h-full object-cover"
+                  className="w-2/3 bg-cover h-2/3"
                 />
               </div>
               
@@ -195,7 +188,7 @@ const NFTCollectorDashboard = () => {
                 
                 {/* Purchase info */}
                 <div className="flex justify-between mt-3">
-                  <div className="text-sm text-gray-500 flex items-center">
+                  <div className="text-sm text-gray-200 flex items-center">
                     <Clock size={14} className="mr-1" />
                     <span>Acquired: {nft.purchaseDate}</span>
                   </div>

@@ -21,13 +21,13 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/artist-signup" element={<ArtistSignup />} />
-        <Route path="/artist-dashboard" element={<ArtistDashboard />} />
+        <Route path="/artist" element={<ArtistDashboard />} />
         <Route path="/collector-signup" element={<CollectorSignup />} />
-        <Route path="/collector-dashboard" element={<CollectorDashboard />} />
+        <Route path="/collector" element={<CollectorDashboard />} />
         <Route path="/create-nft" element={<NFTArtUpload />} />
         <Route path="/royality-certificate" element={<RoyalityCertificate />} />
         <Route path="/marketplace" element={<NFTMarketplace />} />
-        <Route path="/reports" element={<Reports />} />
+        <Route path="/report" element={<Reports />} />
         <Route path="/transaction" element={<Transaction />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/404" element={<NotFound />} />
